@@ -4,10 +4,11 @@
  * @return {number}
  */
 var numberOfEmployeesWhoMetTarget = function(hours, target) {
-    let count = 0;
-    hours.map((hour) => {
-    if (hour >= target)
-      count += 1;
-    });
+  const count = hours.reduce((accumulator, currentValue) => {
+    if (currentValue >= target)
+      return accumulator += 1;
+    else
+      return accumulator;
+  }, 0);
     return count;
 };
