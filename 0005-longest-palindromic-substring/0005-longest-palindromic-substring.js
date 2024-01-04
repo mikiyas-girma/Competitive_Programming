@@ -3,31 +3,29 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    if (s.length <= 1) {
-        return s;
+let longestPalindrome = "";
+
+  // Check every possible substring
+  for (let i = 0; i < s.length; i++) {
+    for (let j = i + 1; j <= s.length; j++) {
+      const substring = s.substring(i, j);
+
+      // Test for palindrome
+      if (isPalindrome(substring) && substring.length > longestPalindrome.length) {
+        longestPalindrome = substring;
+      }
     }
+  }
 
-    let start = 0;
-    let end = 0;
-
-    const expandAroundCenter = (left, right) => {
-        while (left >= 0 && right < s.length && s[left] === s[right]) {
-            left--;
-            right++;
-        }
-        return right - left - 1;
-    };
-
-    for (let i = 0; i < s.length; i++) {
-        const len1 = expandAroundCenter(i, i);
-        const len2 = expandAroundCenter(i, i + 1);
-        const maxLength = Math.max(len1, len2);
-
-        if (maxLength > end - start) {
-            start = i - Math.floor((maxLength - 1) / 2);
-            end = i + Math.floor(maxLength / 2);
-        }
-    }
-
-    return s.substring(start, end + 1);
+  return longestPalindrome;
 };
+
+function isPalindrome(str) {
+    
+  for (let i = 0, j = str.length - 1; i < j; i++, j--) {
+    if (str[i] !== str[j]) {
+      return false; 
+    }
+  }
+  return true; 
+}
